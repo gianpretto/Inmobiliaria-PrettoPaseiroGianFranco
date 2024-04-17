@@ -12,6 +12,7 @@ public class InterfazInmobiliaria {
                 
                 do {
                     
+                	//Menu
                     System.out.println("=== MENÚ ===");
                     System.out.println("1. Agregar propiedad");
                     System.out.println("2. Modificar propiedad");
