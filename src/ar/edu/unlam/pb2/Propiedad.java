@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2;
 
-abstract class Propiedad {
+abstract public class Propiedad {
 	private String codigo;
 	protected String calle;
 	protected Integer numero;
@@ -9,12 +9,17 @@ abstract class Propiedad {
 	protected String ciudad;
 	protected Double precio;
 	private Boolean estaDisponible;
-	private Propietario propietario;
+	private String propietario;
+	private String inquilino;
+	private Boolean esVenta = false;
+	private Boolean esAlquiler = false;
+	private Boolean esPermuta = false;
+	
 	
 	
 	
 	public Propiedad(String codigo,String calle, Integer numero, Integer metros, Integer cantAmbientes, String ciudad, Double precio, Boolean estaDisponible
-			  , Propietario propietario
+			  , String propietario, String inquilino, Boolean esVenta, Boolean esAlquiler, Boolean esPermuta
 			  
 			  ) 
 	{
@@ -27,6 +32,8 @@ abstract class Propiedad {
 		this.precio = precio;
 		this.estaDisponible = estaDisponible;
 		this.propietario = propietario;
+		this.inquilino = inquilino;
+		
 	}
 
 	public String getCodigo() {
@@ -93,13 +100,44 @@ abstract class Propiedad {
 		this.estaDisponible = estaDisponible;
 	}
 	
-	public Propietario getPropietario() {
+	public String getPropietario() {
 		return propietario;
 	}
 
-	public void setPropietario(Propietario propietario) {
-		this.propietario = propietario;
+	public void setPropietario(String nuevoPropietario) {
+		this.propietario = nuevoPropietario;
 	}
 
+	public String getInquilino() {
+		return inquilino;
+	}
+
+	public void setInquilino(String nuevoInquilino) {
+		this.inquilino = nuevoInquilino;
+	}
+
+	public Boolean getEsVenta() {
+		return esVenta;
+	}
+
+	public void setEsVenta(Boolean esVenta) {
+		this.esVenta = esVenta;
+	}
+
+	public Boolean getEsAlquiler() {
+		return esAlquiler;
+	}
+
+	public void setEsAlquiler(Boolean esAlquiler) {
+		this.esAlquiler = esAlquiler;
+	}
+
+	public Boolean getEsPermuta() {
+		return esPermuta;
+	}
+
+	public void setEsPermuta(Boolean esPermuta) {
+		this.esPermuta = esPermuta;
+	}
 
 }

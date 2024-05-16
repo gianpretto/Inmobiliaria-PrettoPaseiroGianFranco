@@ -6,9 +6,10 @@ public class Departamento extends Propiedad{
 	private Character letra;
 	
 	public Departamento(String codigo, String calle, Integer numero, Integer metros, Integer cantAmbientes,
-			Integer piso,Character letra, String ciudad, Double precio, Boolean estaDisponible, Propietario propietario) {
-		super(codigo, calle, numero, metros, cantAmbientes, ciudad, precio, estaDisponible, propietario);
-		
+			Integer piso,Character letra, String ciudad, Double precio, Boolean estaDisponible, String propietario,String inquilino,Boolean esVenta, Boolean esAlquiler, Boolean esPermuta) {
+		super(codigo, calle, numero, metros, cantAmbientes, ciudad, precio, estaDisponible, propietario,"", esVenta, esAlquiler,  esPermuta);
+		this.piso = piso;
+		this.letra = letra;
 
 	}
 	
@@ -32,7 +33,7 @@ public class Departamento extends Propiedad{
 
 	   @Override
 	    public String toString() {
-	        return "Departamento,"+"piso "+ piso + ":" + calle + " " + numero +  ", Precio: $" + precio;
+	        return "Departamento,"+"piso "+ piso + ":" + calle + " " + numero +   ",Ciudad:"+ ciudad+ ", Precio: $" + precio;
 	    }
 
 	public int compareTo(Departamento departamento) {

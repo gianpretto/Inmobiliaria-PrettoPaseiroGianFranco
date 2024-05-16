@@ -8,17 +8,14 @@ public class Inmobiliaria {
 	private String direccion;
 	private String email;
 	private String telefono;
+	private ArrayList<Propiedad> propiedades;
 	private ArrayList<Casa> casas;
 	private ArrayList<Departamento> departamentos;
 	private ArrayList<PH> phs;
 	private ArrayList<Terreno> terrenos;
 	private ArrayList<Campo> campos;
 	private HashSet<Cliente> clientes;
-	private HashSet<Inquilino> inquilinos;
-	private HashSet<Propietario> propietarios;
-	private ArrayList<Alquiler> alquileres;
-	private ArrayList<Venta> ventas;
-	private ArrayList<Permuta> permutas;
+
 	
 	public Inmobiliaria(String nombre, String direccion, String email, String telefono) {
 		
@@ -31,157 +28,48 @@ public class Inmobiliaria {
 		this.phs = new ArrayList<PH>();
 		this.terrenos = new ArrayList<Terreno>();		
 		this.campos = new ArrayList<Campo>();
+		this.propiedades = new ArrayList<Propiedad>();
 		this.clientes = new HashSet<Cliente>();
-		this.inquilinos = new HashSet<Inquilino>();
-		this.propietarios = new HashSet<Propietario>();
-		this.alquileres = new ArrayList<Alquiler>();
-		this.ventas = new ArrayList<Venta>();
-		this.permutas = new ArrayList<Permuta>();
 		
 		
 	}
 	
 
-
-	
-public Boolean addInquilino(Inquilino nueva) {
-	
-	
-     return inquilinos.add(nueva);
- }
-
- 
-// private void redimensionarArray() {
-//     int nuevaCapacidad = inquilinos.size() * 2; 
-//     Inquilino[] nuevoArray = new Inquilino[nuevaCapacidad];
-//     
-//     System.arraycopy(inquilinos, 0, nuevoArray, 0, cantidadInquilinos);
-//     inquilinos = nuevoArray;
-// }
-	
-
-public Boolean addPropietario(Propietario nueva) {
-	
-	return propietarios.add(nueva);
+public Boolean addPropiedad(Propiedad nueva) {
+	return propiedades.add(nueva);
 }
-
-public Boolean addAlquiler(Alquiler nueva) {
-	
-
-	return alquileres.add(nueva);
-}
-
-public Boolean addVenta(Venta nueva) {
-	
-	return ventas.add(nueva);
-}
-
-public Boolean addPermuta(Permuta nueva) {
-	
-	return permutas.add(nueva);
-}
-
 
 public Boolean addCasa(Casa nueva) {
-		
-//	String direccionNueva = nueva.getCalle() + " " + nueva.getNumero() + " "  + nueva.getCiudad();
-//	
-//	 for (int i = 0; i < cantidadCasas; i++) {
-//	        Casa existente = casas[i];
-//	        String direccionExistente = existente.getCalle() + " " + existente.getNumero() + " "  + existente.getCiudad();
-//	        if (direccionNueva.equals(direccionExistente)) {
-//	            System.out.println("Ya existe una casa en la misma dirección.");
-//	            return false;
-//	        }
-//	    }
-//	 
-//    
-//     if (cantidadCasas == casas.length) {
-//         redimensionarArray1();
-//     }
-//
-//     
-//     casas[cantidadCasas] = nueva;
-//     cantidadCasas++;
-//     return true;
+	addPropiedad(nueva);
 	return casas.add(nueva);
- }
+}
 
- 
-// private void redimensionarArray1() {
-//     int nuevaCapacidad = casas.length * 2; 
-//     Casa[] nuevoArray = new Casa[nuevaCapacidad];
-//     
-//     System.arraycopy(casas, 0, nuevoArray, 0, cantidadCasas);
-//     casas = nuevoArray;
-// }
-	
 public Boolean addDepartamento(Departamento nueva) {
-	
+	addPropiedad(nueva);
 	return departamentos.add(nueva);
 }
 
-public Boolean addCliente(Cliente nuevo) {
-		
-    return clientes.add(nuevo);
-}
-
-
-public double obtenerValorPromedioCasas() {
-	if (casas.size() == 0) {
-		return 0.0;
-	}
-	
-	double sumaTotal = 0.0;
-	for (Casa actual : casas) {
-		 sumaTotal += actual.getPrecio();
-	}
-	
-	return sumaTotal/casas.size();
-}
-
-
-public double obtenerValorPromedioDepartamentos() {
-	if (departamentos.size()== 0) {
-		return 0.0;
-	}
-	
-	double sumaTotal = 0.0;
-	for (Departamento actual : departamentos) {
-		sumaTotal += actual.getPrecio();
-	}
-	
-	return sumaTotal/departamentos.size();
-}
-
-public ArrayList<Casa> buscarCasasPorRangoDePrecio(double precioMinimo, double precioMaximo) {
-    ArrayList<Casa> resultados = new ArrayList<Casa>();
-    for (Casa actual : casas) {
-        if (actual.getPrecio() >= precioMinimo && actual.getPrecio() <= precioMaximo) {
-        	resultados.add(actual);
-            
-        }
-    }
-        return resultados ;
-    }
-
 
 public Boolean addPH(PH nueva) {
-	
+	propiedades.add(nueva);
 
 	return phs.add(nueva);
 }
 public Boolean addTerreno(Terreno nueva) {
-	
+	propiedades.add(nueva);
 
 	return terrenos.add(nueva);
 }
 public Boolean addCampo(Campo nueva) {
-	
+	propiedades.add(nueva);
 
 	return campos.add(nueva);
 }
 
+public Boolean addCliente(Cliente nuevo) {
+	
+    return clientes.add(nuevo);
+}
 
 	public String getNombre() {
 		return nombre;
@@ -224,6 +112,15 @@ public Boolean addCampo(Campo nueva) {
 		this.clientes = clientes;
 	}
 
+	public ArrayList<Propiedad> getPropiedades() {
+		
+		return this.propiedades;
+	}
+	
+	public void setPropiedades(ArrayList<Propiedad> propiedades) {
+		this.propiedades = propiedades;
+	}
+	
 	public ArrayList<Casa> getCasas() {
 		
 		return this.casas;
@@ -233,36 +130,7 @@ public Boolean addCampo(Campo nueva) {
 		this.casas = casas;
 	}
 
-	
-	public HashSet<Inquilino> getInquilinos() {
-		return this.inquilinos;
-	}
 
-	
-	
-	public void setInquilinos(HashSet<Inquilino> inquilinos) {
-		this.inquilinos = inquilinos;
-	}
-
-
-
-
-	public HashSet<Propietario> getPropietarios() {
-		return this.propietarios;
-	}
-
-
-
-
-	public void setPropietarios(HashSet<Propietario> propietarios) {
-		this.propietarios = propietarios;
-	}
-
-
-
-
-
-	
 	public ArrayList<Departamento> getDepartamentos() {
 	
 		return this.departamentos;
@@ -280,91 +148,200 @@ public Boolean addCampo(Campo nueva) {
 		return this.campos;
 	}
 
-
-	public ArrayList <Casa>  obtenerPropiedadesOrdenadasPorPrecioCasa() {
-	      //Creamos una copia del ArrayList original para no modificarlo directamente
-		ArrayList<Casa> copiaCasas = new ArrayList<>(casas);
+	public double obtenerValorPromedioCasas() {
+		if (casas.size() == 0) {
+			return 0.0;
+		}
 		
-		//ordenamos con el metodo de burbujeo adaptado a ArrayList
-		int n = copiaCasas.size();
+		double sumaTotal = 0.0;
+		for (Casa actual : casas) {
+			 sumaTotal += actual.getPrecio();
+		}
 		
-		for (int i=0; i<n-1;i++) {
-			for(int j=0; j < n-1-i; j++) {
-				if(copiaCasas.get(j).getPrecio() > copiaCasas.get(j+1).getPrecio()) {
-					Casa temp = copiaCasas.get(j);
-					copiaCasas.set(j, copiaCasas.get(j+1));
-					copiaCasas.set(j+1, temp);
-				}
-			}
-		}	
-		
-		return copiaCasas;
+		return sumaTotal/casas.size();
 	}
 
 
-	public ArrayList<Casa> obtenerPropiedadesOrdenadasPorUbicacionCasa() {
-		//Creamos una copia del ArrayList original para no modificarlo directamente
-				ArrayList<Casa> copiaCasas = new ArrayList<>(casas);
-				
-				//ordenamos con el metodo de burbujeo adaptado a ArrayList
-				int n = copiaCasas.size();
-				
-				for (int i=0; i<n-1;i++) {
-					for(int j=0; j < n-1-i; j++) {
-						if(copiaCasas.get(j).getCiudad().compareTo(copiaCasas.get(j+1).getCiudad()) > 0 ) {
-							Casa temp = copiaCasas.get(j);
-							copiaCasas.set(j, copiaCasas.get(j+1));
-							copiaCasas.set(j+1, temp);
-						}
-					}
-				}	
-				
-		return copiaCasas;
+	public ArrayList<Casa> buscarCasasPorRangoDePrecio(double precioMinimo, double precioMaximo) {
+	    ArrayList<Casa> resultados = new ArrayList<Casa>();
+	    for (Casa actual : casas) {
+	        if (actual.getPrecio() >= precioMinimo && actual.getPrecio() <= precioMaximo) {
+	        	resultados.add(actual);
+	            
+	        }
+	    }
+	        return resultados ;
+	    }
+	
+
+	public double obtenerValorPromedioDepartamentos() {
+		if (departamentos.size()== 0) {
+			return 0.0;
+		}
+		
+		double sumaTotal = 0.0;
+		for (Departamento actual : departamentos) {
+			sumaTotal += actual.getPrecio();
+		}
+		
+		return sumaTotal/departamentos.size();
 	}
 	
-	public ArrayList<Departamento> obtenerPropiedadesOrdenadasPorPrecioDepto() {
+
+
+	public ArrayList<Propiedad> buscarPropiedadesPorRangoDePrecio(double precioMinimo, double precioMaximo) {
+	    ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
+	    for (Propiedad actual : propiedades) {
+	        if (actual.getPrecio() >= precioMinimo && actual.getPrecio() <= precioMaximo) {
+	        	resultados.add(actual);
+	            
+	        }
+	    }
+	        return resultados ;
+	    }
+	
+	public ArrayList<Propiedad> buscarPropiedadesPorUbicacion(String ciudad) {
+	    ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
+	    for (Propiedad actual : propiedades) {
+	        if (actual.getCiudad().equals(ciudad)) {
+	        	resultados.add(actual);
+	            
+	        }
+	    }
+	        return resultados ;
+	    }
+	
+	public ArrayList<Propiedad> buscarPropiedadesPorOperacion(String operacion) {
+		ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
 		
-		//Creamos una copia del ArrayList original para no modificarlo directamente
-		ArrayList<Departamento> copiaDeptos = new ArrayList<>(departamentos);
+		
+	    for (Propiedad actual : propiedades) {
+	    	if(operacion.equals("VENTA")) {
+	    		if (actual.getEsVenta().equals(true)) {
+	    			resultados.add(actual);	            
+	    		}
+	    	}	
+	    	else if(operacion.equals("ALQUILER")) {
+	    		if (actual.getEsAlquiler().equals(true)) {
+	    			resultados.add(actual);	            
+	    		}
+	    	}
+	    }
+	        return resultados ;
+	}
+	
+	public ArrayList <Propiedad>  obtenerPropiedadesOrdenadasPorPrecio() {
+	      //Creamos una copia del ArrayList original para no modificarlo directamente
+		ArrayList<Propiedad> copiaPropiedades = new ArrayList<>(propiedades);
 		
 		//ordenamos con el metodo de burbujeo adaptado a ArrayList
-		int n = copiaDeptos.size();
+		int n = copiaPropiedades.size();
 		
 		for (int i=0; i<n-1;i++) {
 			for(int j=0; j < n-1-i; j++) {
-				if(copiaDeptos.get(j).getPrecio() > copiaDeptos.get(j+1).getPrecio()  ) {
-					Departamento temp = copiaDeptos.get(j);
-					copiaDeptos.set(j, copiaDeptos.get(j+1));
-					copiaDeptos.set(j+1, temp);
+				if(copiaPropiedades.get(j).getPrecio() > copiaPropiedades.get(j+1).getPrecio()) {
+					Propiedad temp = copiaPropiedades.get(j);
+					copiaPropiedades.set(j, copiaPropiedades.get(j+1));
+					copiaPropiedades.set(j+1, temp);
 				}
 			}
 		}	
 		
-		return copiaDeptos;
+		return copiaPropiedades;
+	}
+	
+	public ArrayList<Propiedad> buscarPropiedadesPorVenta() {
+	    ArrayList<Propiedad> propiedadesPorVenta = new ArrayList<>();
+	    for (Propiedad propiedad : getPropiedades()) {
+	        if (propiedad.getEsVenta().equals(true)) {
+	            propiedadesPorVenta.add(propiedad);
+	        }
+	    }
+	    return propiedadesPorVenta;
 	}
 
 
-	public ArrayList<Departamento>  obtenerPropiedadesOrdenadasPorUbicacionDepto() {
-		//Creamos una copia del ArrayList original para no modificarlo directamente
-				ArrayList<Departamento> copiaDeptos = new ArrayList<>(departamentos);
-				
-				//ordenamos con el metodo de burbujeo adaptado a ArrayList
-				int n = copiaDeptos.size();
-				
-				for (int i=0; i<n-1;i++) {
-					for(int j=0; j < n-1-i; j++) {
-						if(copiaDeptos.get(j).getCiudad().compareTo(copiaDeptos.get(j+1).getCiudad()) > 0 ) {
-							Departamento temp = copiaDeptos.get(j);
-							copiaDeptos.set(j, copiaDeptos.get(j+1));
-							copiaDeptos.set(j+1, temp);
-						}
+
+
+		public ArrayList<Propiedad> obtenerPropiedadesOrdenadasPorCiudad() {
+			//Creamos una copia del ArrayList original para no modificarlo directamente
+			ArrayList<Propiedad> copiaPropiedades = new ArrayList<>(propiedades);
+			
+			//ordenamos con el metodo de burbujeo adaptado a ArrayList
+			int n = copiaPropiedades.size();
+			
+			for (int i=0; i<n-1;i++) {
+				for(int j=0; j < n-1-i; j++) {
+					if(copiaPropiedades.get(j).getCiudad().compareTo(copiaPropiedades.get(j+1).getCiudad()) > 0 ) {
+						Propiedad temp = copiaPropiedades.get(j);
+						copiaPropiedades.set(j, copiaPropiedades.get(j+1));
+						copiaPropiedades.set(j+1, temp);
 					}
-				}	
-				
-				return copiaDeptos;
+				}
+			}	
+			
+			return copiaPropiedades;
+       }
+
+
+
+
+		public void alquilarPropiedad(Propiedad propiedad, String inquilino) {
+			 // Verificar si la propiedad existe en la lista
+	        if (propiedades.contains(propiedad)) {
+	            // Establecer el nuevo inquilino y marcar la propiedad como en alquiler	            
+	            propiedad.setEsVenta(false);
+	            propiedad.setEsAlquiler(true);
+	            propiedad.setInquilino(inquilino);
+	            System.out.println("El alquiler de la propiedad se ha realizado exitosamente.");
+	        } else {
+	            System.out.println("La propiedad no existe en la lista.");
+	        }
+			
+		}
+
+
+
+
+		public void venderPropiedad(Propiedad propiedad, String propietarioNuevo) {
+			  // Verificar si la propiedad existe en la lista
+	        if (propiedades.contains(propiedad)) {
+	            // Establecer el nuevo propietario y marcar la propiedad como en venta
+	            propiedad.setPropietario(propietarioNuevo);
+	            propiedad.setEsVenta(true);
+	            propiedad.setEsAlquiler(false);
+	            propiedad.setInquilino("");
+	            System.out.println("La venta de la propiedad se ha realizado exitosamente.");
+	        } else {
+	            System.out.println("La propiedad no existe en la lista.");
+	        }
+			
+		}
+
+
+		public Propiedad buscarPropiedadPorCodigo(String codigo) {
+			for (Propiedad propiedad : propiedades) {
+		        if (propiedad.getCodigo().equals(codigo)) {
+		            return propiedad; 
+		        }
+		    }
+		    return null;
+		}
+	
+		
 	}
 
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

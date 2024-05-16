@@ -4,10 +4,11 @@ public class Campo extends Propiedad {
 
 		private Double hectareas;
 
-	   public Campo(String codigo, String calle, Integer numero, Integer metros, Integer cantAmbientes, String ciudad,
-			Double precio, Boolean estaDisponible, Propietario propietario) {
-		super(codigo, calle, numero, metros, 0, ciudad, precio, estaDisponible, propietario);
+	   public Campo(String codigo, String calle, Integer numero, Integer metros, Integer cantAmbientes, String ciudad, Double hectareas,
+			Double precio, Boolean estaDisponible, String propietario, String inquilino,Boolean esVenta, Boolean esAlquiler, Boolean esPermuta) {
+		super(codigo, calle, numero, metros, 0, ciudad, precio, estaDisponible, propietario, "", esVenta,  esAlquiler,  esPermuta);
 		
+		this.hectareas = hectareas;
 	}
 
 		public Double getHectareas() {

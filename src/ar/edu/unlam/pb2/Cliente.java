@@ -48,6 +48,10 @@ public class Cliente {
 		return Objects.equals(dni, other.dni);
 	}
 
+	@Override
+    public String toString() {
+        return "Cliente:" + nombre + " " + apellido + "," + dni;
+    }
 	
 	
 	

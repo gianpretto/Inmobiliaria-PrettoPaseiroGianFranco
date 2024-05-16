@@ -4,13 +4,13 @@ public class Casa extends Propiedad {
 	
 
 	   public Casa(String codigo, String calle, Integer numero, Integer metros, Integer cantAmbientes, String ciudad,
-			Double precio, Boolean estaDisponible, Propietario propietario) {
-		super(codigo, calle, numero, metros, cantAmbientes, ciudad, precio, estaDisponible, propietario);
+			Double precio, Boolean estaDisponible, String propietario,String inquilino,Boolean esVenta, Boolean esAlquiler, Boolean esPermuta) {
+		super(codigo, calle, numero, metros, cantAmbientes, ciudad, precio, estaDisponible, propietario,"", esVenta,  esAlquiler,  esPermuta);
 	}
 
 	@Override
 	    public String toString() {
-	        return "Casa: " + calle + " " + numero +  ", Precio: $" + precio;
+	        return "Casa: " + calle + " " + numero +  ",Ciudad:"+ ciudad+", Precio: $" + precio;
 	    }
 
 

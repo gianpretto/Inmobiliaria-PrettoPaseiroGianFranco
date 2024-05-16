@@ -14,16 +14,15 @@ public class TestInmobiliaria {
 
     @Test
     public void testDarDeAltaCasa() {
-        
+        //Preparacion
         Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 
-        Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
-//        Inquilino inquilino = inquilino.fromString("12345678,Nicolas,Labriola");
+        String propietario = "pepe";
         
         
-        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 18000.00, true, propietario);
+        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 18000.00, true, propietario,"",false,false,false);
 
-        
+        //Ejecucion
         inmobiliaria.addCasa(casa);
 
         boolean casaEncontrada = false;
@@ -33,24 +32,24 @@ public class TestInmobiliaria {
                 break;
             }
         }
+        //Validacion
         assertTrue(casaEncontrada);
     }
 
 
     @Test
 	public void queSePuedanDarDeAltaDosCasasEnLaInmobiliaria() {
-	    
+	    //Preparacion
 	    Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 	
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
-	//    Inquilino inquilino = inquilino.fromString("12345678,Nicolas,Labriola");
+	    String propietario = "pepe";
 	    
 	    
-	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 18000.00, true, propietario);
+	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 18000.00, true, propietario, "",false,false,false);
 	 
-	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 19000.00, true, propietario);
+	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 19000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addCasa(casa1);
 	    inmobiliaria.addCasa(casa2);
 	    
@@ -60,10 +59,13 @@ public class TestInmobiliaria {
 	            casasNoNulas++;
 	        }
 	    }
+	    //Validacion
 	    assertEquals(2, casasNoNulas);	   
 	}
     
-//    @Test
+//    @Test ***No se puede realizar con ArrayList, deberia ser un HashSet Y pasarle como HashCode la calle y el numero
+//			***Ademas se contradice con la consigna del punto 1.a. donde dice que las propiedades pueden ser repetidas 
+//    		***pero con distinto precio
 //	public void queNoSePuedanDarDeAltaDosCasasConUnaMismaDireccion() {
 //	    
 //	    Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
@@ -87,15 +89,13 @@ public class TestInmobiliaria {
 
 	@Test
 	public void testDarDeAltaDepto() {
-	    
+	    //Preparacion
 	    Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
+	    String propietario = "pepe";
+	    
+	    Departamento depto = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b', "San Justo", 18000.00, true, propietario,"",false,false,false);
 	
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
-	    
-	    
-	    Departamento depto = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b', "San Justo", 18000.00, true, propietario);
-	
-	    
+	    //Ejecucion
 	    inmobiliaria.addDepartamento(depto);
 	
 	    boolean deptoEncontrado = false;
@@ -105,23 +105,23 @@ public class TestInmobiliaria {
 	            break;
 	        }
 	    }
+	    //Validacion
 	    assertTrue(deptoEncontrado);
 	}
 
 
 	@Test
 	public void queSePuedanDarDeAltaDosDeptosEnLaInmobiliaria() {
-	    
+	    //Preparacion
 	    Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 	
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
-	//    Inquilino inquilino = inquilino.fromString("12345678,Nicolas,Labriola");
+	    String propietario = "pepe";
 	    
 	    
-	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario);
-	    Departamento depto2 = new Departamento("DEPTO2", "CATANIA", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario);
+	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario,"",false,false,false);
+	    Departamento depto2 = new Departamento("DEPTO2", "CATANIA", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addDepartamento(depto1);
 	    inmobiliaria.addDepartamento(depto2);
 	    
@@ -131,16 +131,18 @@ public class TestInmobiliaria {
 	        	deptosNoNulos++;
 	        }
 	    }
+	    //Validacion
 	    assertEquals(2, deptosNoNulos);	   
 	}
 
-//	@Test
+//  @Test ***No se puede realizar con ArrayList, deberia ser un HashSet Y pasarle como HashCode la calle y el numero
+//		  ***Ademas se contradice con la consigna del punto 1.a. donde dice que las propiedades pueden ser repetidas 
+//  	  ***pero con distinto precio
+//        
 //	public void queNoSePuedanDarDeAltaDosDeptosConUnaMismaDireccion() {
 //	    
 //	    Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 //	
-//	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
-//	//    Inquilino inquilino = inquilino.fromString("12345678,Nicolas,Labriola");
 //	    
 //	    
 //	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario);
@@ -156,24 +158,25 @@ public class TestInmobiliaria {
 	
 	@Test
 	public void queSePuedaObtenerElValorPromedioDeLasCasas() {
-		
+		//Preparacion
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+	    String propietario = "pepe";
 		
-	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario);
+	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
-	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 10000.00, true, propietario);
+	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 10000.00, true, propietario,"",false,false,false);
 	    
-	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario);
+	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addCasa(casa1);
 	    inmobiliaria.addCasa(casa2);
 	    inmobiliaria.addCasa(casa3);
 	    
 	    double valorPromedio = inmobiliaria.obtenerValorPromedioCasas();
 	    
+	    //Validacion
 	    double valorEsperado = (casa1.getPrecio() + casa2.getPrecio() + casa3.getPrecio()) / 3.0;
         assertEquals(valorEsperado, valorPromedio, 0.001); 
 		
@@ -181,17 +184,17 @@ public class TestInmobiliaria {
 
 	@Test
 	public void queSePuedaObtenerElValorPromedioDeLosDepartamentos() {
-		
+		//Preparacion
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+	    String propietario = "pepe";
 		
-	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, propietario);
-	    Departamento depto2 = new Departamento("DEPTO2", "CATANIA", 723, 50, 3,2, 'b',"San Justo", 20000.00, true, propietario);
-	    Departamento depto3 = new Departamento("DEPTO3", "PATRON", 623, 50, 3,2, 'b',"San Justo", 15000.00, true, propietario);
-	    Departamento depto4 = new Departamento("DEPTO4", "VARELA", 323, 50, 3,2, 'b',"San Justo", 11000.00, true, propietario);
+	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, propietario,"",false,false,false);
+	    Departamento depto2 = new Departamento("DEPTO2", "CATANIA", 723, 50, 3,2, 'b',"San Justo", 20000.00, true, propietario,"",false,false,false);
+	    Departamento depto3 = new Departamento("DEPTO3", "PATRON", 623, 50, 3,2, 'b',"San Justo", 15000.00, true, propietario,"",false,false,false);
+	    Departamento depto4 = new Departamento("DEPTO4", "VARELA", 323, 50, 3,2, 'b',"San Justo", 11000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addDepartamento(depto1);
 	    inmobiliaria.addDepartamento(depto2);
 	    inmobiliaria.addDepartamento(depto3);
@@ -199,6 +202,7 @@ public class TestInmobiliaria {
 	    
 	    double valorPromedio = inmobiliaria.obtenerValorPromedioDepartamentos();
 	    
+	    //Validacion
 	    double valorEsperado = (depto1.getPrecio() + depto2.getPrecio() + depto3.getPrecio() + depto4.getPrecio()) / 4.0;
         assertEquals(valorEsperado, valorPromedio, 0.001); 
 		
@@ -206,54 +210,97 @@ public class TestInmobiliaria {
 	
 	@Test
 	public void queLaBusquedaPorRangoDePrecioDeMeArrojeUnArrayNoNuloSiAplicanResultados() {
-		
+		//Preparacion
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+	    String propietario = "pepe";
 		
-	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario);
+	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
-	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario);
+	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario,"",false,false,false);
 	    
-	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario);
+	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addCasa(casa1);
 	    inmobiliaria.addCasa(casa2);
 	    inmobiliaria.addCasa(casa3);
 	    
 	    ArrayList<Casa> casasEnRango = inmobiliaria.buscarCasasPorRangoDePrecio(10000.00,20000.00);
 	    
-	    //Verifico que el array no sea nulo
+	    //Validacion Verifico que el array no sea nulo
         assertNotNull(casasEnRango); 
 		
 	}
 	
 	@Test
 	public void queLaBusquedaPorRangoDePrecioDeCasasMeArrojeUnArrayNuloSiNoAplicanResultados() {
-		
+		//Preparacion
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-	    Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+	    String propietario = "pepe";
 		
-	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario);
+	    Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
-	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario);
+	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario,"",false,false,false);
 	    
-	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario);
+	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
-	    
+	    //Ejecucion
 	    inmobiliaria.addCasa(casa1);
 	    inmobiliaria.addCasa(casa2);
 	    inmobiliaria.addCasa(casa3);
 	    
 	    ArrayList<Casa> casasEnRango = inmobiliaria.buscarCasasPorRangoDePrecio(1000.00,2000.00);
 	    
+	    //Validacion
 	    //Verifico que el array sea nulo
         assertTrue(casasEnRango.isEmpty()); 
 		
 	}
 	
+	
+	@Test
+	public void queLaBusquedaDePropiedadesPorVentaMeArrojeUnaLista() {
+	     // Preparacion
+		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
+        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, "pepe","",true,false,false);
+        Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, "pepe","",true,false,false);
+        String propietario = "Juan Perez";
+        //Ejecucion
+        inmobiliaria.addCasa(casa);
+        inmobiliaria.venderPropiedad(casa, propietario);
+        inmobiliaria.addDepartamento(departamento);
+        inmobiliaria.venderPropiedad(departamento, propietario);
+        
+        
+        ArrayList<Propiedad> propiedadesVendidas = inmobiliaria.buscarPropiedadesPorVenta();
+        
+       
+        //Validacion
+       assertNotNull(propiedadesVendidas);
+    }
+	
+	
+	@Test
+	public void queLaBusquedaDePropiedadesPorVentaMeArrojeUnaListaNuloSiNoAplicanResultados() {
+		 // Preparacion
+		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
+        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, "pepe","",false,false,false);
+        Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, "pepe","",false,false,false);
+        
+        //Ejecucion
+        inmobiliaria.addCasa(casa);
+        inmobiliaria.addDepartamento(departamento);
+        
+        ArrayList<Propiedad> propiedadesVendidas = inmobiliaria.buscarPropiedadesPorVenta();
+        
+        //Validacion
+       assertTrue(propiedadesVendidas.isEmpty());
+	}
+	
+	
+	//***-------------------------Tests de Colecciones---------------------------------------------***
 	@Test
 	public void queSePuedaAgregarUnaCasaYLaDimensionDelArraySeaLaMinimaPosible() {
 		//Preparacion
@@ -261,9 +308,9 @@ public class TestInmobiliaria {
 		
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-		Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+		String propietario = "pepe";
 		
-		 Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario);
+		 Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
 		 //Ejecucion
 		 inmobiliaria.addCasa(casa1);
@@ -282,13 +329,13 @@ public class TestInmobiliaria {
 		
 		Inmobiliaria inmobiliaria = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 		
-		Propietario propietario = Propietario.fromString("12345678,Tadeo,Garcia");
+		String propietario = "pepe";
 		
-		 Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario);
+		 Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
-		 Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario);
+		 Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 8000.00, true, propietario,"",false,false,false);
 		    
-		 Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario);
+		 Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 		    
 		 
 		 //Ejecucion
@@ -336,8 +383,7 @@ public class TestInmobiliaria {
 		inmobiliaria.addCliente(cliente1);
 		inmobiliaria.addCliente(cliente2);
 		inmobiliaria.addCliente(cliente3);
-		
-		HashSet<Cliente> clientes = inmobiliaria.getClientes();		 
+			 
 		//Validacion
 		assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getClientes().size());
 		
@@ -370,6 +416,7 @@ public class TestInmobiliaria {
 		assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getClientes().size());
 		
 	}
+
 
 }
 
