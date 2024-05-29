@@ -9,11 +9,6 @@ public class Inmobiliaria {
 	private String email;
 	private String telefono;
 	private ArrayList<Propiedad> propiedades;
-	private ArrayList<Casa> casas;
-	private ArrayList<Departamento> departamentos;
-	private ArrayList<PH> phs;
-	private ArrayList<Terreno> terrenos;
-	private ArrayList<Campo> campos;
 	private HashSet<Cliente> clientes;
 
 	
@@ -23,53 +18,12 @@ public class Inmobiliaria {
 		this.direccion = direccion;
 		this.email = email;
 		this.telefono = telefono;		
-		this.casas = new ArrayList<Casa>();
-		this.departamentos = new ArrayList<Departamento>();
-		this.phs = new ArrayList<PH>();
-		this.terrenos = new ArrayList<Terreno>();		
-		this.campos = new ArrayList<Campo>();
 		this.propiedades = new ArrayList<Propiedad>();
 		this.clientes = new HashSet<Cliente>();
 		
 		
 	}
 	
-
-public Boolean addPropiedad(Propiedad nueva) {
-	return propiedades.add(nueva);
-}
-
-public Boolean addCasa(Casa nueva) {
-	addPropiedad(nueva);
-	return casas.add(nueva);
-}
-
-public Boolean addDepartamento(Departamento nueva) {
-	addPropiedad(nueva);
-	return departamentos.add(nueva);
-}
-
-
-public Boolean addPH(PH nueva) {
-	propiedades.add(nueva);
-
-	return phs.add(nueva);
-}
-public Boolean addTerreno(Terreno nueva) {
-	propiedades.add(nueva);
-
-	return terrenos.add(nueva);
-}
-public Boolean addCampo(Campo nueva) {
-	propiedades.add(nueva);
-
-	return campos.add(nueva);
-}
-
-public Boolean addCliente(Cliente nuevo) {
-	
-    return clientes.add(nuevo);
-}
 
 	public String getNombre() {
 		return nombre;
@@ -103,6 +57,25 @@ public Boolean addCliente(Cliente nuevo) {
 		this.telefono = telefono;
 	}
 
+	public Boolean addPropiedad(Propiedad nueva) {
+		return propiedades.add(nueva);
+	}
+	
+    public ArrayList<Propiedad> getPropiedades() {
+		
+		return this.propiedades;
+	}
+    
+    public void setPropiedades(ArrayList<Propiedad> propiedades) {
+		this.propiedades = propiedades;
+	}
+	
+
+	public Boolean addCliente(Cliente nuevo) {
+		
+	    return clientes.add(nuevo);
+	}
+
 
 	public HashSet<Cliente> getClientes() {
 		return clientes;
@@ -112,79 +85,60 @@ public Boolean addCliente(Cliente nuevo) {
 		this.clientes = clientes;
 	}
 
-	public ArrayList<Propiedad> getPropiedades() {
-		
-		return this.propiedades;
-	}
 	
-	public void setPropiedades(ArrayList<Propiedad> propiedades) {
-		this.propiedades = propiedades;
-	}
-	
-	public ArrayList<Casa> getCasas() {
-		
-		return this.casas;
-	}
-	
-	public void setCasas(ArrayList<Casa> casas) {
-		this.casas = casas;
-	}
-
-
-	public ArrayList<Departamento> getDepartamentos() {
-	
-		return this.departamentos;
-	}
-	public ArrayList<PH> getPHs() {
-	
-		return this.phs;
-	}
-	public ArrayList<Terreno> getTerrenos() {
-	
-		return this.terrenos;
-	}
-	public ArrayList<Campo> getCampos() {
-	
-		return this.campos;
-	}
 
 	public double obtenerValorPromedioCasas() {
-		if (casas.size() == 0) {
+		if (propiedades.size() == 0) {
 			return 0.0;
 		}
 		
 		double sumaTotal = 0.0;
-		for (Casa actual : casas) {
-			 sumaTotal += actual.getPrecio();
+		int contadorCasas = 0;
+		for (Propiedad actual : propiedades) {
+			if(actual instanceof Casa) {
+				Casa casa = (Casa) actual;
+				sumaTotal += casa.getPrecio();
+				contadorCasas++;
+			}
+			 
 		}
 		
-		return sumaTotal/casas.size();
+		return sumaTotal/contadorCasas;
 	}
 
 
 	public ArrayList<Casa> buscarCasasPorRangoDePrecio(double precioMinimo, double precioMaximo) {
 	    ArrayList<Casa> resultados = new ArrayList<Casa>();
-	    for (Casa actual : casas) {
-	        if (actual.getPrecio() >= precioMinimo && actual.getPrecio() <= precioMaximo) {
-	        	resultados.add(actual);
+	    for (Propiedad actual : propiedades) {
+	    	if(actual instanceof Casa) {
+	    		Casa casa = (Casa) actual;
+	    		if (casa.getPrecio() >= precioMinimo && casa.getPrecio() <= precioMaximo) {
+	        	resultados.add(casa);
 	            
-	        }
+	    		}
+	    	}	
 	    }
 	        return resultados ;
 	    }
 	
 
 	public double obtenerValorPromedioDepartamentos() {
-		if (departamentos.size()== 0) {
+		if (propiedades.size() == 0) {
 			return 0.0;
 		}
 		
 		double sumaTotal = 0.0;
-		for (Departamento actual : departamentos) {
-			sumaTotal += actual.getPrecio();
+		int contadorDeptos = 0;
+		for (Propiedad actual : propiedades) {
+			if(actual instanceof Departamento) {
+				Departamento depto = (Departamento) actual;
+				sumaTotal += depto.getPrecio();
+				contadorDeptos++;
+			}
+			 
 		}
 		
-		return sumaTotal/departamentos.size();
+		return sumaTotal/contadorDeptos;
 	}
 	
 

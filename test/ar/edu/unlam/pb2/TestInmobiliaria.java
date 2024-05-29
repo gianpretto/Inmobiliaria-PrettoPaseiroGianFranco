@@ -23,10 +23,10 @@ public class TestInmobiliaria {
         Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 18000.00, true, propietario,"",false,false,false);
 
         //Ejecucion
-        inmobiliaria.addCasa(casa);
+        inmobiliaria.addPropiedad(casa);
 
         boolean casaEncontrada = false;
-        for (Casa c : inmobiliaria.getCasas()) {
+        for (Propiedad c : inmobiliaria.getPropiedades()) {
             if (c.equals(casa)) {
                 casaEncontrada = true;
                 break;
@@ -50,11 +50,11 @@ public class TestInmobiliaria {
 	    Casa casa2 = new Casa("CASA2", "CARRASCO", 523, 50, 3, "San Justo", 19000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addCasa(casa1);
-	    inmobiliaria.addCasa(casa2);
+	    inmobiliaria.addPropiedad(casa1);
+	    inmobiliaria.addPropiedad(casa2);
 	    
 	    int casasNoNulas = 0;
-	    for (Casa casa : inmobiliaria.getCasas()) {
+	    for (Propiedad casa : inmobiliaria.getPropiedades()) {
 	        if (casa != null) {
 	            casasNoNulas++;
 	        }
@@ -78,9 +78,9 @@ public class TestInmobiliaria {
 //	 
 //	    Casa casa2 = new Casa("CASA2", "CARRASCO", 123, 50, 3, "San Justo", 19000.00, true, propietario);
 //	
-//	     inmobiliaria.addCasa(casa1);
+//	     inmobiliaria.addPropiedad(casa1);
 //	    
-//	    boolean resultado = inmobiliaria.addCasa(casa2);
+//	    boolean resultado = inmobiliaria.addPropiedad(casa2);
 //
 //       
 //        assertFalse(resultado);	   
@@ -96,10 +96,10 @@ public class TestInmobiliaria {
 	    Departamento depto = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b', "San Justo", 18000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addDepartamento(depto);
+	    inmobiliaria.addPropiedad(depto);
 	
 	    boolean deptoEncontrado = false;
-	    for (Departamento d : inmobiliaria.getDepartamentos()) {
+	    for (Propiedad d : inmobiliaria.getPropiedades()) {
 	        if (d.equals(depto)) {
 	            deptoEncontrado = true;
 	            break;
@@ -122,11 +122,11 @@ public class TestInmobiliaria {
 	    Departamento depto2 = new Departamento("DEPTO2", "CATANIA", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addDepartamento(depto1);
-	    inmobiliaria.addDepartamento(depto2);
+	    inmobiliaria.addPropiedad(depto1);
+	    inmobiliaria.addPropiedad(depto2);
 	    
 	    int deptosNoNulos = 0;
-	    for (Departamento depto : inmobiliaria.getDepartamentos()) {
+	    for (Propiedad depto : inmobiliaria.getPropiedades()) {
 	        if (depto != null) {
 	        	deptosNoNulos++;
 	        }
@@ -148,9 +148,9 @@ public class TestInmobiliaria {
 //	    Departamento depto1 = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario);
 //	    Departamento depto2 = new Departamento("DEPTO2", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 18000.00, true, propietario);
 //	
-//	    inmobiliaria.addDepartamento(depto1);
+//	    inmobiliaria.addPropiedad(depto1);
 //	    
-//	    boolean resultado = inmobiliaria.addDepartamento(depto2);
+//	    boolean resultado = inmobiliaria.addPropiedad(depto2);
 //	
 //	   
 //	    assertFalse(resultado);	   
@@ -170,9 +170,9 @@ public class TestInmobiliaria {
 	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addCasa(casa1);
-	    inmobiliaria.addCasa(casa2);
-	    inmobiliaria.addCasa(casa3);
+	    inmobiliaria.addPropiedad(casa1);
+	    inmobiliaria.addPropiedad(casa2);
+	    inmobiliaria.addPropiedad(casa3);
 	    
 	    double valorPromedio = inmobiliaria.obtenerValorPromedioCasas();
 	    
@@ -195,10 +195,10 @@ public class TestInmobiliaria {
 	    Departamento depto4 = new Departamento("DEPTO4", "VARELA", 323, 50, 3,2, 'b',"San Justo", 11000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addDepartamento(depto1);
-	    inmobiliaria.addDepartamento(depto2);
-	    inmobiliaria.addDepartamento(depto3);
-	    inmobiliaria.addDepartamento(depto4);
+	    inmobiliaria.addPropiedad(depto1);
+	    inmobiliaria.addPropiedad(depto2);
+	    inmobiliaria.addPropiedad(depto3);
+	    inmobiliaria.addPropiedad(depto4);
 	    
 	    double valorPromedio = inmobiliaria.obtenerValorPromedioDepartamentos();
 	    
@@ -222,9 +222,9 @@ public class TestInmobiliaria {
 	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addCasa(casa1);
-	    inmobiliaria.addCasa(casa2);
-	    inmobiliaria.addCasa(casa3);
+	    inmobiliaria.addPropiedad(casa1);
+	    inmobiliaria.addPropiedad(casa2);
+	    inmobiliaria.addPropiedad(casa3);
 	    
 	    ArrayList<Casa> casasEnRango = inmobiliaria.buscarCasasPorRangoDePrecio(10000.00,20000.00);
 	    
@@ -247,9 +247,9 @@ public class TestInmobiliaria {
 	    Casa casa3 = new Casa("CASA3", "CATANIA", 768, 50, 3, "San Justo", 20000.00, true, propietario,"",false,false,false);
 	
 	    //Ejecucion
-	    inmobiliaria.addCasa(casa1);
-	    inmobiliaria.addCasa(casa2);
-	    inmobiliaria.addCasa(casa3);
+	    inmobiliaria.addPropiedad(casa1);
+	    inmobiliaria.addPropiedad(casa2);
+	    inmobiliaria.addPropiedad(casa3);
 	    
 	    ArrayList<Casa> casasEnRango = inmobiliaria.buscarCasasPorRangoDePrecio(1000.00,2000.00);
 	    
@@ -268,9 +268,9 @@ public class TestInmobiliaria {
         Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, "pepe","",true,false,false);
         String propietario = "Juan Perez";
         //Ejecucion
-        inmobiliaria.addCasa(casa);
+        inmobiliaria.addPropiedad(casa);
         inmobiliaria.venderPropiedad(casa, propietario);
-        inmobiliaria.addDepartamento(departamento);
+        inmobiliaria.addPropiedad(departamento);
         inmobiliaria.venderPropiedad(departamento, propietario);
         
         
@@ -290,8 +290,8 @@ public class TestInmobiliaria {
         Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"San Justo", 10000.00, true, "pepe","",false,false,false);
         
         //Ejecucion
-        inmobiliaria.addCasa(casa);
-        inmobiliaria.addDepartamento(departamento);
+        inmobiliaria.addPropiedad(casa);
+        inmobiliaria.addPropiedad(departamento);
         
         ArrayList<Propiedad> propiedadesVendidas = inmobiliaria.buscarPropiedadesPorVenta();
         
@@ -313,10 +313,10 @@ public class TestInmobiliaria {
 		 Casa casa1 = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,"",false,false,false);
 		 
 		 //Ejecucion
-		 inmobiliaria.addCasa(casa1);
+		 inmobiliaria.addPropiedad(casa1);
 		 
 		 //Validacion
-		 assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getCasas().size());
+		 assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getPropiedades().size());
 		
 	}
 	
@@ -339,13 +339,13 @@ public class TestInmobiliaria {
 		    
 		 
 		 //Ejecucion
-		 inmobiliaria.addCasa(casa1);
-		 inmobiliaria.addCasa(casa2);
-		 inmobiliaria.addCasa(casa3);
+		 inmobiliaria.addPropiedad(casa1);
+		 inmobiliaria.addPropiedad(casa2);
+		 inmobiliaria.addPropiedad(casa3);
 		 
 		 
 		 //Validacion
-		 assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getCasas().size());
+		 assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getPropiedades().size());
 		
 	}
 	
