@@ -7,7 +7,7 @@ public class InterfazInmobiliaria {
 	private static Scanner teclado = new Scanner(System.in);
 	private static  Inmobiliaria actual = new Inmobiliaria("PrettoPaseiro", "Callefalsa 123", "inmobiliariapretto@gmail.com","1512345678");
 
-            public static void main(String[] args) {
+            public static void main(String[] args) throws SinResultadosException, UmbralMinimoNoAlcanzadoException {
                 
 
                 OpcionDeMenu opcionMenu;
@@ -67,6 +67,8 @@ public class InterfazInmobiliaria {
                         case REALIZAR_ALQUILER:
                             realizarAlquiler(actual);
                             break;
+                        case REALIZAR_PERMUTA:
+                        	realizarPermuta(actual);
                         case SALIR:
                             System.out.println("¡Hasta luego!");                            
                             break;
@@ -79,12 +81,16 @@ public class InterfazInmobiliaria {
             }
 	
 
-	private static void agregarPropiedad(Inmobiliaria inmobiliaria){
-        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, "pepe","",true,false,false);
-        Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"Ramos Mejia", 10000.00, true, "pepe","",true,false,false);
-        PH ph = new PH("PH1", "CARRASCO", 123, 50, 3, "Lomas del Mirador", 13000.00, true, "pepe","",true,false,false);
-        Campo campo = new Campo("CAMPO1", "CARRASCO", 123, 50, 3,"Lujan",50.0, 100000.00, true, "pepe","",true,false,false);
-        Terreno terreno = new Terreno("TERRENO1", "CARRASCO", 123, 50, 3, "Chivilcoy", 25000.00, true, "pepe","",true,false,false);
+	
+
+
+	private static void agregarPropiedad(Inmobiliaria inmobiliaria) throws UmbralMinimoNoAlcanzadoException{
+		Cliente propietario = new Cliente (12345678,"pepe","argento");
+        Casa casa = new Casa("CASA1", "CARRASCO", 123, 50, 3, "San Justo", 15000.00, true, propietario,null,true,false,false);
+        Departamento departamento = new Departamento("DEPTO1", "CARRASCO", 123, 50, 3,2, 'b',"Ramos Mejia", 10000.00, true,propietario,null,true,false,false);
+        PH ph = new PH("PH1", "CARRASCO", 123, 50, 3, "Lomas del Mirador", 13000.00, true,propietario,null,true,false,false);
+        Campo campo = new Campo("CAMPO1", "CARRASCO", 123, 50, 3,"Lujan",50.0, 100000.00, true,propietario,null,true,false,false);
+        Terreno terreno = new Terreno("TERRENO1", "CARRASCO", 123, 50, 3, "Chivilcoy", 25000.00, true, propietario,null,true,false,false);
         
 
 		inmobiliaria.addPropiedad(casa);
@@ -151,7 +157,7 @@ public class InterfazInmobiliaria {
 				    propiedadAModificar.setEstaDisponible(disponible);
 				    
 				    System.out.print("Ingrese el nombre del propietario: ");
-			    	String propietario = teclado.next();
+			    	Cliente propietario = new Cliente(12345677,"pepo","argento");
 			    	propiedadAModificar.setPropietario(propietario);
 
 			        System.out.println("Propiedad modificada exitosamente.");
@@ -176,21 +182,21 @@ public class InterfazInmobiliaria {
 	    }
 		
 	
-	private static void mostrarPropiedadesPorPrecio(Inmobiliaria inmobiliaria) {
-		ArrayList<Propiedad> propiedadesOrdenadasPrecio = inmobiliaria.obtenerPropiedadesOrdenadasPorPrecio();
+	private static void mostrarPropiedadesPorPrecio(Inmobiliaria inmobiliaria) throws SinResultadosException {
+		ArrayList<Propiedad> propiedadesOrdenadasPrecio = inmobiliaria.obtenerPropiedadesOrdenadasPorPrecio(10000.00, 20000.00);
 		mostrarPropiedades(propiedadesOrdenadasPrecio);
     }
         
 	
 	
-	private static void mostrarPropiedadesPorUbicacion(Inmobiliaria inmobiliaria) {
-		ArrayList<Propiedad> propiedadesOrdenadasCiudad = inmobiliaria.obtenerPropiedadesOrdenadasPorCiudad();
+	private static void mostrarPropiedadesPorUbicacion(Inmobiliaria inmobiliaria) throws SinResultadosException {
+		ArrayList<Propiedad> propiedadesOrdenadasCiudad = inmobiliaria.obtenerPropiedadesOrdenadasPorUbicacion();
 		mostrarPropiedades(propiedadesOrdenadasCiudad);
 		
 	}
 	
 	
-	private static void buscarPorPrecio(Inmobiliaria inmobiliaria) {
+	private static void buscarPorPrecio(Inmobiliaria inmobiliaria) throws SinResultadosException {
 		System.out.print("Ingrese el precio Minimo ");
 	    Double precioMinimo = teclado.nextDouble();
 	    
@@ -201,7 +207,7 @@ public class InterfazInmobiliaria {
 	    mostrarPropiedades(propiedadesEnRangoPrecio);
 	}
 	
-	private static void buscarPorUbicacion(Inmobiliaria inmobiliaria) {
+	private static void buscarPorUbicacion(Inmobiliaria inmobiliaria) throws SinResultadosException {
 		System.out.print("Ingrese la ciudad por la que desea filtrar: ");
 	    String ciudad = teclado.next();
 		
@@ -211,7 +217,7 @@ public class InterfazInmobiliaria {
 	}
 
 
-	private static void buscarPorVentaOAlquiler(Inmobiliaria inmobiliaria) {
+	private static void buscarPorVentaOAlquiler(Inmobiliaria inmobiliaria) throws SinResultadosException {
 		System.out.print("Ingrese si desea filtrar por Propiedades en Venta o Alquiler(Escriba VENTA o ALQUILER): ");
 	    String operacion = teclado.next();
 	    		
@@ -226,8 +232,7 @@ public class InterfazInmobiliaria {
 	private static void realizarAlquiler(Inmobiliaria inmobiliaria) {
 		System.out.print("Ingrese el codigo de la propiedad ");
 		String codigoPropiedad = teclado.next();
-		System.out.print("Ingrese el nombre del inquilino ");
-		String inquilino = teclado.next();
+		Cliente inquilino = new Cliente(12345666,"rafael","perez");
 		
 		Propiedad propiedadAAlquilar = inmobiliaria.buscarPropiedadPorCodigo(codigoPropiedad);
 		
@@ -243,14 +248,25 @@ public class InterfazInmobiliaria {
 	private static void realizarVenta(Inmobiliaria inmobiliaria) {
 		System.out.print("Ingrese el codigo de la propiedad ");
 		String codigoPropiedad = teclado.next();
-		System.out.print("Ingrese el nombre del nuevo Propietario ");
-		String propietarioNuevo = teclado.next();
+		Cliente propietarioNuevo = new Cliente(12345676,"tadeo","barcia");
 		
 		Propiedad propiedadAVender = inmobiliaria.buscarPropiedadPorCodigo(codigoPropiedad);
 		inmobiliaria.venderPropiedad(propiedadAVender,propietarioNuevo);
 
 				
 		}
+	
+	private static void realizarPermuta(Inmobiliaria inmobiliaria) {
+		System.out.print("Ingrese el codigo de la propiedad A");
+		String codigoPropiedadA = teclado.next();
+		System.out.print("Ingrese el codigo de la propiedad A");
+		String codigoPropiedadB = teclado.next();		
+		
+		Propiedad propiedadAPermutarA = inmobiliaria.buscarPropiedadPorCodigo(codigoPropiedadA);
+		Propiedad propiedadAPermutarB = inmobiliaria.buscarPropiedadPorCodigo(codigoPropiedadB);
+		inmobiliaria.permutarPropiedades(propiedadAPermutarA,propiedadAPermutarB);
+		
+	}
 
 			
 	

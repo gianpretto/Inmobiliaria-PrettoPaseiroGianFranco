@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2;
 
-abstract public class Propiedad {
+abstract public class Propiedad implements Comparable <Propiedad>{
 	private String codigo;
 	protected String calle;
 	protected Integer numero;
@@ -8,18 +8,18 @@ abstract public class Propiedad {
 	private Integer cantAmbientes;
 	protected String ciudad;
 	protected Double precio;
-	private Boolean estaDisponible;
-	private String propietario;
-	private String inquilino;
-	private Boolean esVenta = false;
-	private Boolean esAlquiler = false;
-	private Boolean esPermuta = false;
+	private Boolean estaDisponible = true;
+	private Cliente propietario;
+	private Cliente inquilino;
+	protected Boolean esVenta = false;
+	protected Boolean esAlquiler = false;
+	protected Boolean esPermuta = false;
 	
 	
 	
 	
 	public Propiedad(String codigo,String calle, Integer numero, Integer metros, Integer cantAmbientes, String ciudad, Double precio, Boolean estaDisponible
-			  , String propietario, String inquilino, Boolean esVenta, Boolean esAlquiler, Boolean esPermuta
+			  , Cliente propietario, Cliente inquilino, Boolean esVenta, Boolean esAlquiler, Boolean esPermuta
 			  
 			  ) 
 	{
@@ -100,19 +100,19 @@ abstract public class Propiedad {
 		this.estaDisponible = estaDisponible;
 	}
 	
-	public String getPropietario() {
+	public Cliente getPropietario() {
 		return propietario;
 	}
 
-	public void setPropietario(String nuevoPropietario) {
+	public void setPropietario(Cliente nuevoPropietario) {
 		this.propietario = nuevoPropietario;
 	}
 
-	public String getInquilino() {
+	public Cliente getInquilino() {
 		return inquilino;
 	}
 
-	public void setInquilino(String nuevoInquilino) {
+	public void setInquilino(Cliente nuevoInquilino) {
 		this.inquilino = nuevoInquilino;
 	}
 
@@ -139,5 +139,10 @@ abstract public class Propiedad {
 	public void setEsPermuta(Boolean esPermuta) {
 		this.esPermuta = esPermuta;
 	}
+	
+	@Override
+    public int compareTo(Propiedad otra) {
+        return Double.compare(this.precio, otra.precio);
+    }
 
 }

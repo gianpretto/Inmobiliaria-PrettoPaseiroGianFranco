@@ -57,9 +57,7 @@ public class Inmobiliaria {
 		this.telefono = telefono;
 	}
 
-	public Boolean addPropiedad(Propiedad nueva) {
-		return propiedades.add(nueva);
-	}
+	
 	
     public ArrayList<Propiedad> getPropiedades() {
 		
@@ -86,64 +84,31 @@ public class Inmobiliaria {
 	}
 
 	
-
-	public double obtenerValorPromedioCasas() {
+	public Boolean addPropiedad(Propiedad nueva) throws UmbralMinimoNoAlcanzadoException {
+		if (nueva.getPrecio() < 10000) {
+            throw new UmbralMinimoNoAlcanzadoException("El precio de la propiedad es inferior al umbral mínimo de 10000.");
+        }
+		return propiedades.add(nueva);
+	}
+	
+	public double obtenerValorPromedioPropiedades() {
 		if (propiedades.size() == 0) {
 			return 0.0;
 		}
 		
 		double sumaTotal = 0.0;
-		int contadorCasas = 0;
+		int contadorPropiedades = 0;
 		for (Propiedad actual : propiedades) {
-			if(actual instanceof Casa) {
-				Casa casa = (Casa) actual;
-				sumaTotal += casa.getPrecio();
-				contadorCasas++;
-			}
-			 
+				sumaTotal += actual.getPrecio();
+				contadorPropiedades++;						 
 		}
 		
-		return sumaTotal/contadorCasas;
+		return sumaTotal/contadorPropiedades;
 	}
 
 
-	public ArrayList<Casa> buscarCasasPorRangoDePrecio(double precioMinimo, double precioMaximo) {
-	    ArrayList<Casa> resultados = new ArrayList<Casa>();
-	    for (Propiedad actual : propiedades) {
-	    	if(actual instanceof Casa) {
-	    		Casa casa = (Casa) actual;
-	    		if (casa.getPrecio() >= precioMinimo && casa.getPrecio() <= precioMaximo) {
-	        	resultados.add(casa);
-	            
-	    		}
-	    	}	
-	    }
-	        return resultados ;
-	    }
-	
 
-	public double obtenerValorPromedioDepartamentos() {
-		if (propiedades.size() == 0) {
-			return 0.0;
-		}
-		
-		double sumaTotal = 0.0;
-		int contadorDeptos = 0;
-		for (Propiedad actual : propiedades) {
-			if(actual instanceof Departamento) {
-				Departamento depto = (Departamento) actual;
-				sumaTotal += depto.getPrecio();
-				contadorDeptos++;
-			}
-			 
-		}
-		
-		return sumaTotal/contadorDeptos;
-	}
-	
-
-
-	public ArrayList<Propiedad> buscarPropiedadesPorRangoDePrecio(double precioMinimo, double precioMaximo) {
+	public ArrayList<Propiedad> buscarPropiedadesPorRangoDePrecio(double precioMinimo, double precioMaximo) throws SinResultadosException{
 	    ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
 	    for (Propiedad actual : propiedades) {
 	        if (actual.getPrecio() >= precioMinimo && actual.getPrecio() <= precioMaximo) {
@@ -151,10 +116,13 @@ public class Inmobiliaria {
 	            
 	        }
 	    }
+	    if (resultados.isEmpty()) {
+            throw new SinResultadosException("No hay propiedades encontradas.");
+        }
 	        return resultados ;
 	    }
 	
-	public ArrayList<Propiedad> buscarPropiedadesPorUbicacion(String ciudad) {
+	public ArrayList<Propiedad> buscarPropiedadesPorUbicacion(String ciudad) throws SinResultadosException{
 	    ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
 	    for (Propiedad actual : propiedades) {
 	        if (actual.getCiudad().equals(ciudad)) {
@@ -162,10 +130,13 @@ public class Inmobiliaria {
 	            
 	        }
 	    }
+	    if (propiedades.isEmpty()) {
+            throw new SinResultadosException("No hay propiedades encontradas.");
+        }
 	        return resultados ;
 	    }
 	
-	public ArrayList<Propiedad> buscarPropiedadesPorOperacion(String operacion) {
+	public ArrayList<Propiedad> buscarPropiedadesPorOperacion(String operacion) throws SinResultadosException{
 		ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
 		
 		
@@ -181,90 +152,74 @@ public class Inmobiliaria {
 	    		}
 	    	}
 	    }
+	    if (propiedades.isEmpty()) {
+            throw new SinResultadosException("No hay propiedades encontradas.");
+        }
 	        return resultados ;
 	}
 	
-	public ArrayList <Propiedad>  obtenerPropiedadesOrdenadasPorPrecio() {
-	      //Creamos una copia del ArrayList original para no modificarlo directamente
-		ArrayList<Propiedad> copiaPropiedades = new ArrayList<>(propiedades);
-		
-		//ordenamos con el metodo de burbujeo adaptado a ArrayList
-		int n = copiaPropiedades.size();
-		
-		for (int i=0; i<n-1;i++) {
-			for(int j=0; j < n-1-i; j++) {
-				if(copiaPropiedades.get(j).getPrecio() > copiaPropiedades.get(j+1).getPrecio()) {
-					Propiedad temp = copiaPropiedades.get(j);
-					copiaPropiedades.set(j, copiaPropiedades.get(j+1));
-					copiaPropiedades.set(j+1, temp);
-				}
-			}
-		}	
-		
-		return copiaPropiedades;
+	public ArrayList<Propiedad>  obtenerPropiedadesOrdenadasPorPrecio(double precioMinimo, double precioMaximo) throws SinResultadosException{
+		ArrayList<Propiedad> resultado = new ArrayList<>();
+        for (Propiedad propiedad : propiedades) {
+            if (propiedad.getPrecio() >= precioMinimo && propiedad.getPrecio() <= precioMaximo) {
+                resultado.add(propiedad);
+            }
+        }
+        if (propiedades.isEmpty()) {
+            throw new SinResultadosException("No se encontraron propiedades en el rango de precios especificado.");
+        }
+        resultado.sort(Comparator.comparingDouble(Propiedad::getPrecio));
+        return resultado;
 	}
 	
-	public ArrayList<Propiedad> buscarPropiedadesPorVenta() {
+	public ArrayList<Propiedad> buscarPropiedadesPorVenta() throws SinResultadosException{
 	    ArrayList<Propiedad> propiedadesPorVenta = new ArrayList<>();
 	    for (Propiedad propiedad : getPropiedades()) {
 	        if (propiedad.getEsVenta().equals(true)) {
 	            propiedadesPorVenta.add(propiedad);
 	        }
 	    }
+	    if (propiedades.isEmpty()) {
+            throw new SinResultadosException("No hay propiedades encontradas.");
+        }
 	    return propiedadesPorVenta;
 	}
 
 
 
 
-		public ArrayList<Propiedad> obtenerPropiedadesOrdenadasPorCiudad() {
-			//Creamos una copia del ArrayList original para no modificarlo directamente
-			ArrayList<Propiedad> copiaPropiedades = new ArrayList<>(propiedades);
+		public ArrayList<Propiedad> obtenerPropiedadesOrdenadasPorUbicacion() throws SinResultadosException {
+			 if (propiedades.isEmpty()) {
+		            throw new SinResultadosException("No hay propiedades disponibles para ordenar.");
+		        }
 			
-			//ordenamos con el metodo de burbujeo adaptado a ArrayList
-			int n = copiaPropiedades.size();
-			
-			for (int i=0; i<n-1;i++) {
-				for(int j=0; j < n-1-i; j++) {
-					if(copiaPropiedades.get(j).getCiudad().compareTo(copiaPropiedades.get(j+1).getCiudad()) > 0 ) {
-						Propiedad temp = copiaPropiedades.get(j);
-						copiaPropiedades.set(j, copiaPropiedades.get(j+1));
-						copiaPropiedades.set(j+1, temp);
-					}
-				}
-			}	
-			
-			return copiaPropiedades;
+			ArrayList<Propiedad> resultado = new ArrayList<>();
+	        resultado.sort(Comparator.comparing(Propiedad::getCiudad));
+	        return resultado;
        }
 
 
 
 
-		public void alquilarPropiedad(Propiedad propiedad, String inquilino) {
+		public void alquilarPropiedad(Propiedad propiedad, Cliente inquilino) {
 			 // Verificar si la propiedad existe en la lista
-	        if (propiedades.contains(propiedad)) {
-	            // Establecer el nuevo inquilino y marcar la propiedad como en alquiler	            
-	            propiedad.setEsVenta(false);
-	            propiedad.setEsAlquiler(true);
-	            propiedad.setInquilino(inquilino);
-	            System.out.println("El alquiler de la propiedad se ha realizado exitosamente.");
-	        } else {
-	            System.out.println("La propiedad no existe en la lista.");
-	        }
+	       if (propiedades.contains(propiedad) && propiedad instanceof Alquilable) {
+	           // Establecer el nuevo inquilino y marcar la propiedad como en alquiler	            
+	           ((Alquilable) propiedad).alquilar(inquilino);
+	           System.out.println("El alquiler de la propiedad se ha realizado exitosamente.");
+	       } else {
+	           System.out.println("La propiedad no existe en la lista.");
+	       }
 			
 		}
 
 
 
-
-		public void venderPropiedad(Propiedad propiedad, String propietarioNuevo) {
+		public void venderPropiedad(Propiedad propiedad, Cliente propietarioNuevo) {
 			  // Verificar si la propiedad existe en la lista
-	        if (propiedades.contains(propiedad)) {
+	        if (propiedades.contains(propiedad) && propiedad instanceof Vendible) {
 	            // Establecer el nuevo propietario y marcar la propiedad como en venta
-	            propiedad.setPropietario(propietarioNuevo);
-	            propiedad.setEsVenta(true);
-	            propiedad.setEsAlquiler(false);
-	            propiedad.setInquilino("");
+	        	((Vendible) propiedad).vender(propietarioNuevo);
 	            System.out.println("La venta de la propiedad se ha realizado exitosamente.");
 	        } else {
 	            System.out.println("La propiedad no existe en la lista.");
@@ -279,7 +234,20 @@ public class Inmobiliaria {
 		            return propiedad; 
 		        }
 		    }
+			
 		    return null;
+		}
+
+
+		public void permutarPropiedades(Propiedad propiedadAPermutarA, Propiedad propiedadAPermutarB) {
+			if (propiedades.contains(propiedadAPermutarA) && propiedadAPermutarA instanceof Permutable) {
+	        	((Permutable) propiedadAPermutarA).permutar(propiedadAPermutarB);
+	            System.out.println("La permuta de las propiedades se ha realizado exitosamente.");
+	        } else {
+	            System.out.println("La propiedad no existe en la lista.");
+	        }
+			
+			
 		}
 	
 		
