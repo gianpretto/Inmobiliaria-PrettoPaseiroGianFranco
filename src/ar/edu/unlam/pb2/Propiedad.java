@@ -144,5 +144,12 @@ abstract public class Propiedad implements Comparable <Propiedad>{
     public int compareTo(Propiedad otra) {
         return Double.compare(this.precio, otra.precio);
     }
+	
+
+
+
+	
+
+	
 
 }

@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2;
 
-public class Campo extends Propiedad implements Vendible, Permutable{
+public class Campo extends Propiedad{
 
 		private Double hectareas;
 
@@ -28,37 +28,6 @@ public class Campo extends Propiedad implements Vendible, Permutable{
 			return "Campo en  " + ciudad + " de " + hectareas + "ha" +  ", Precio: $" + precio;
 	    }
 
-	@Override
-	public void permutar(Propiedad propiedadAPermutar) {
-			if(!getEsPermuta()) {
-				setEsPermuta(true);
-				setEsAlquiler(false);
-				setEsVenta(false);			
-				setEstaDisponible(false);	
-				Cliente propietarioTemp = this.getPropietario();
-				this.setPropietario(propiedadAPermutar.getPropietario());
-				propiedadAPermutar.setPropietario(propietarioTemp);
-				System.out.println("El campo en"+ calle +" "+ numero + "ha sido permutada exitosamente!");								
-			}else {
-				System.out.println("El campo en "+ calle +" "+ numero + " ya fue permutado.");
-			}
-	}
-
-	@Override
-	public void vender(Cliente propietarioNuevo) {
-		if(!getEsVenta()) {
-			setEsAlquiler(false);
-			setEsVenta(true);
-			setEsPermuta(false);
-			setEstaDisponible(false);
-			setPropietario(propietarioNuevo);
-			setInquilino(null);
-			System.out.println("El campo en"+ calle +" "+ numero + "ha sido vendida exitosamente!");
-		}else {
-			System.out.println("El campo en "+ calle +" "+ numero + " ya fue vendida.");
-		}
-		
-	}
 
 }
 

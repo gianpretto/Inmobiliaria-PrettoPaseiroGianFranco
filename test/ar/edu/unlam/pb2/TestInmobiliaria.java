@@ -358,9 +358,6 @@ public class TestInmobiliaria {
 		
 		inmobiliaria.addCliente(cliente3);
 		
-		
-		HashSet<Cliente> clientes = inmobiliaria.getClientes();	
-		System.out.println("Tamaño del HashSet después de agregar cliente: " + clientes.size());
 		//Validacion
 		assertEquals(DIMENSION_ARRAY_ESPERADA, (Integer)inmobiliaria.getClientes().size());
 		

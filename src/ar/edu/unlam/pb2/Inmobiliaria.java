@@ -10,6 +10,7 @@ public class Inmobiliaria {
 	private String telefono;
 	private ArrayList<Propiedad> propiedades;
 	private HashSet<Cliente> clientes;
+	private TreeSet<Operacion> operaciones;
 
 	
 	public Inmobiliaria(String nombre, String direccion, String email, String telefono) {
@@ -20,6 +21,7 @@ public class Inmobiliaria {
 		this.telefono = telefono;		
 		this.propiedades = new ArrayList<Propiedad>();
 		this.clientes = new HashSet<Cliente>();
+		this.operaciones = new TreeSet<Operacion>();
 		
 		
 	}
@@ -83,6 +85,14 @@ public class Inmobiliaria {
 		this.clientes = clientes;
 	}
 
+	 public TreeSet<Operacion> getOperaciones() {
+			
+			return this.operaciones;
+		}
+	    
+	    public void setOperaciones(TreeSet<Operacion> operaciones) {
+			this.operaciones = operaciones;
+		}
 	
 	public Boolean addPropiedad(Propiedad nueva) throws UmbralMinimoNoAlcanzadoException {
 		if (nueva.getPrecio() < 10000) {
@@ -137,9 +147,7 @@ public class Inmobiliaria {
 	    }
 	
 	public ArrayList<Propiedad> buscarPropiedadesPorOperacion(String operacion) throws SinResultadosException{
-		ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();
-		
-		
+		ArrayList<Propiedad> resultados = new ArrayList<Propiedad>();		
 	    for (Propiedad actual : propiedades) {
 	    	if(operacion.equals("VENTA")) {
 	    		if (actual.getEsVenta().equals(true)) {
@@ -148,6 +156,11 @@ public class Inmobiliaria {
 	    	}	
 	    	else if(operacion.equals("ALQUILER")) {
 	    		if (actual.getEsAlquiler().equals(true)) {
+	    			resultados.add(actual);	            
+	    		}
+	    	}
+	    	else if(operacion.equals("PERMUTA")) {
+	    		if (actual.getEsPermuta().equals(true)) {
 	    			resultados.add(actual);	            
 	    		}
 	    	}
@@ -202,13 +215,9 @@ public class Inmobiliaria {
 
 
 		public void alquilarPropiedad(Propiedad propiedad, Cliente inquilino) {
-			 // Verificar si la propiedad existe en la lista
-	       if (propiedades.contains(propiedad) && propiedad instanceof Alquilable) {
-	           // Establecer el nuevo inquilino y marcar la propiedad como en alquiler	            
-	           ((Alquilable) propiedad).alquilar(inquilino);
-	           System.out.println("El alquiler de la propiedad se ha realizado exitosamente.");
-	       } else {
-	           System.out.println("La propiedad no existe en la lista.");
+	       operaciones.add(new Alquiler(propiedad,inquilino));   
+	       for(Operacion operacion : operaciones) {
+	    	   operacion.ejecutar();
 	       }
 			
 		}
@@ -216,14 +225,20 @@ public class Inmobiliaria {
 
 
 		public void venderPropiedad(Propiedad propiedad, Cliente propietarioNuevo) {
-			  // Verificar si la propiedad existe en la lista
-	        if (propiedades.contains(propiedad) && propiedad instanceof Vendible) {
-	            // Establecer el nuevo propietario y marcar la propiedad como en venta
-	        	((Vendible) propiedad).vender(propietarioNuevo);
-	            System.out.println("La venta de la propiedad se ha realizado exitosamente.");
-	        } else {
-	            System.out.println("La propiedad no existe en la lista.");
-	        }
+			operaciones.add(new Venta(propiedad,propietarioNuevo));   
+		       for(Operacion operacion : operaciones) {
+		    	   operacion.ejecutar();
+		       }
+			
+		}
+		
+		public void permutarPropiedades(Propiedad propiedadAPermutarA, Propiedad propiedadAPermutarB) {
+			operaciones.add(new Permuta(propiedadAPermutarA,propiedadAPermutarB));   
+		       for(Operacion operacion : operaciones) {
+		    	   operacion.ejecutar();
+		       }
+
+			
 			
 		}
 
@@ -239,16 +254,7 @@ public class Inmobiliaria {
 		}
 
 
-		public void permutarPropiedades(Propiedad propiedadAPermutarA, Propiedad propiedadAPermutarB) {
-			if (propiedades.contains(propiedadAPermutarA) && propiedadAPermutarA instanceof Permutable) {
-	        	((Permutable) propiedadAPermutarA).permutar(propiedadAPermutarB);
-	            System.out.println("La permuta de las propiedades se ha realizado exitosamente.");
-	        } else {
-	            System.out.println("La propiedad no existe en la lista.");
-	        }
-			
-			
-		}
+		
 	
 		
 	}
